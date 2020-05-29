@@ -1,0 +1,19 @@
+{
+  "name": "markets-notifier",
+  "version": "1.0.0",
+  "description": "blendermarket notification extension",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/3DEsprit/markets-notifier.git"
+  },
+  "author": "Dennis Brown",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/3DEsprit/markets-notifier/issues"
+  },
+  "homepage": "https://github.com/3DEsprit/markets-notifier#readme"
+}

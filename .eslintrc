@@ -1,0 +1,45 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "parserOptions": { 
+    "ecmaVersion": 2017,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react"
+  ],
+  "extends": ["eslint:recommended"],
+  "rules": {
+    "no-console": 0,
+    "new-cap": 0,
+    "no-underscore-dangle": 1,
+    "no-use-before-define": 0,
+    "no-unused-vars": [2, {"argsIgnorePattern": "^_", "varsIgnorePattern": "^_"}],
+    "no-undef": 0,
+    "eol-last": 2,
+    "quotes": [2, "single"],
+    "jsx-quotes": 1,
+    "semicolon": [0, "never"],
+    "comma-dangle": [2, "never", {
+      "max": 1,
+      "maxEOF": 1,
+      "maxBOF": 1
+    }],
+    "no-trailing-spaces": ["error", {
+      "skipBlankLines": false,
+      "ignoreComments": false
+    }],
+    "sort-keys": [0, "asc", {
+      "caseSensitive": true,
+      "natural": false
+    }],
+    "arrow-parens": ["error", "as-needed"],
+    "max-line-length": 0,
+    "max-lines-per-function": [1, 300],
+    "sort-imports": 0,
+    "max-classes-per-file": 1
+  }
+}
