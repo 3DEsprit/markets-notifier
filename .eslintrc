@@ -1,5 +1,4 @@
 {
-  "parser": "babel-eslint",
   "env": {
     "node": true,
     "es6": true
@@ -8,14 +7,11 @@
     "ecmaVersion": 2017,
     "sourceType": "module"
   },
-  "plugins": [
-    "react"
-  ],
   "extends": ["eslint:recommended"],
   "rules": {
     "no-console": 0,
     "new-cap": 0,
-    "no-underscore-dangle": 1,
+    "no-underscore-dangle": 0,
     "no-use-before-define": 0,
     "no-unused-vars": [2, {"argsIgnorePattern": "^_", "varsIgnorePattern": "^_"}],
     "no-undef": 0,
