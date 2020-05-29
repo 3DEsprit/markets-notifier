@@ -1,11 +1,11 @@
 (function() {
   window.messageCheck = window.messageCheck || {};
 
-  messageCheck.Utils = function() {
+  messageCheck.Utilities = function() {
     this.messageCheck = '';
   };
 
-  messageCheck.Utils.prototype = {
+  messageCheck.Utilities.prototype = {
     callConsole: function(file) {
       console.log('FooFunc prototype loaded from ' + file);
     },
