@@ -2,10 +2,25 @@
   "name": "Markets Notifier",
   "version": "1.0",
   "description": "Custom Inbox Nofications",
-  "permissions": ["activeTab", "notifications", "declarativeContent", "storage"],
+  "permissions": [
+    "activeTab",
+    "notifications",
+    "declarativeContent",
+    "storage",
+    "https://blendermarket.com/"
+  ],
   "options_page": "options.html",
+  "options_ui": {
+    "chrome_style": true,
+    "page": "options.html"
+  },
   "background": {
-    "scripts": ["background.js"],
+    "scripts": [
+      "utils.js",
+      "background.js",
+      "replies.js",
+      "prefs.js"
+    ],
     "persistent": false
   },
   "page_action": {
