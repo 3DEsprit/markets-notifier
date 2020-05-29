@@ -16,10 +16,10 @@
   },
   "background": {
     "scripts": [
-      "utils.js",
+      "utilities.js",
       "background.js",
       "replies.js",
-      "prefs.js"
+      "preferences.js"
     ],
     "persistent": false
   },

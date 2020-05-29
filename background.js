@@ -1,43 +1,37 @@
 (function() {
   // watch intervals and start searching
   var nextTime, lastTime, waitTime = 0, pollTime = 15000;
-  var utils = new messageCheck.Utils;
-  var prefs = new messageCheck.Prefs;
+  const Utilities = new messageCheck.Utilities;
+  const Preferences = new messageCheck.Preferences;
 
   function checkInbox() {
-    utils.fetchPage('blendermarket.com/inbox', out => {
-      console.log(out.match(re));
+    Utilities.fetchPage(window.inboxUrl, out => {
+      console.log(out.match('conversations'));
     });
-  }
-
-  function addTime(time) {
-    console.log('addTime');
-    lastTime = new Date();
-    nextTime = lastTime.getTime() + time * 60000;
-  }
-
-  function checkMessages() {
-    console.log('check messages');
-    addTime(waitTime);
   }
 
   function updateList() {
     var oldTime = waitTime;
-    prefs.get('waitTime', store => {
+    Preferences.get('waitTime', store => {
       waitTime = store;
-      if(waitTime === 0) { waitTime = 15; }
-      if(waitTime !== oldTime) {
+      if (waitTime === 0) {
+        waitTime = 15;
+      }
+
+      if (waitTime !== oldTime) {
         console.log('reset');
 
         checkTime = setInterval(updateList, pollTime);
-        checkMessages();
+        lastTime = new Date();
+        nextTime = lastTime.getTime() + waitTime * 60000;
+        checkInbox();
       }
     });
 
     if(nextTime !== undefined) {
       if(Date.now() >= nextTime) {
         console.log('timeout');
-        checkMessages();
+        checkInbox();
       }
     }
   }

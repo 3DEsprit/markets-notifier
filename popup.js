@@ -7,10 +7,6 @@
 
   function start() {
     console.log('Starting Popup ' + chrome.app.getDetails().version);
-    topics = 0;
-    searchList('Blender', out => {
-      console.log(out)
-    });
   }
 
   start();

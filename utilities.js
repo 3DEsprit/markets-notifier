@@ -1,5 +1,6 @@
 (function() {
   window.messageCheck = window.messageCheck || {};
+  window.inboxUrl = 'https://blendermarket.com/inbox';
 
   messageCheck.Utilities = function() {
     this.messageCheck = '';

@@ -1,7 +1,7 @@
 (function() {
   // add replies to list object
   window.messageCheck = window.messageCheck || {};
-  var utils = new messageCheck.Utils;
+  const Utilities = new messageCheck.Utilities;
 
   messageCheck.Conversations = function() {
     this.total = 0;
@@ -10,7 +10,7 @@
 
   messageCheck.Conversations.prototype = {
     checkList: function() {
-      utils.fetchPage('https://blendermarket.com/', out => {
+      Utilities.fetchPage(window.inboxUrl, out => {
         if (out) {
           console.log(out);
         }
@@ -26,7 +26,7 @@
   // make single instance for extension
   messageCheck.getMessages = function() {
     var background = chrome.extension.getBackgroundPage();
-    if (!background.messageCheck.hasOwnProperty('conversations')) {
+    if (!Object.prototype.hasOwnProperty.call(background.messageCheck, 'Conversations')) {
       background.messageCheck.Conversations = new messageCheck.Conversations;
     }
     return background.messageCheck.Conversations;
