@@ -1,19 +1,20 @@
 (function() {
   window.messageChecker = window.messageChecker || {};
+
   window.inboxUrl = 'https://blendermarket.com/inbox';
 
-  messageChecker.Utilities = function() {
+  messageChecker.Utilities = () => {
     this.messageChecker = '';
   };
 
   messageChecker.Utilities.prototype = {
-    callConsole: function(file) {
+    callConsole: file => {
       console.log('FooFunc prototype loaded from ' + file);
     },
 
-    fetchPageXhr: function(url, cb) {
+    fetchPageXhr: (url, cb) => {
       let xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function() {
+      xhr.onreadystatechange = () => {
         if(this.readyState === 4 && this.status === 200) {
           console.log(this.responseText);
           cb(this.responseText);
@@ -26,7 +27,7 @@
       xhr.send();
     },
 
-    fetchPage: function(url, cb) {
+    fetchPage: (url, cb) => {
       fetch(url, {mode: 'cors'})
       .then(res => {
         return res.text();
@@ -39,7 +40,7 @@
       });
     },
 
-    timePoll(pollTime, waitTime, cb) {
+    timePoll: (pollTime, waitTime, cb) => {
       var stopTime = Date.newDate() + pollTime;
       var _timeInterval = (resolve, reject) => {
         var res = cb();
