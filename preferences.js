@@ -1,8 +1,8 @@
 (function() {
   var console = chrome.extension.getBackgroundPage().console;
-  window.messageCheck = window.messageCheck || {};
+  window.messageChecker = window.messageChecker || {};
 
-  messageCheck.Preferences = function() {
+  messageChecker.Preferences = function() {
     this.settings = {
       options: {
         pollTime: 15000,
@@ -12,7 +12,7 @@
     }
   };
 
-  messageCheck.Preferences.prototype = {
+  messageChecker.Preferences.prototype = {
     get: function(key, cb) {
       chrome.storage.sync.get(this.settings, store => {
         cb(store.options[key]);

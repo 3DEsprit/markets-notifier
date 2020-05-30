@@ -1,8 +1,8 @@
 (function() {
   // watch intervals and start searching
   var nextTime, lastTime, waitTime = 0, pollTime = 15000;
-  const Utilities = new messageCheck.Utilities;
-  const Preferences = new messageCheck.Preferences;
+  const Utilities = new messageChecker.Utilities;
+  const Preferences = new messageChecker.Preferences;
 
   function checkInbox() {
     Utilities.fetchPage(window.inboxUrl, out => {

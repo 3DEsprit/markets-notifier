@@ -1,12 +1,12 @@
 (function() {
-  window.messageCheck = window.messageCheck || {};
+  window.messageChecker = window.messageChecker || {};
   window.inboxUrl = 'https://blendermarket.com/inbox';
 
-  messageCheck.Utilities = function() {
-    this.messageCheck = '';
+  messageChecker.Utilities = function() {
+    this.messageChecker = '';
   };
 
-  messageCheck.Utilities.prototype = {
+  messageChecker.Utilities.prototype = {
     callConsole: function(file) {
       console.log('FooFunc prototype loaded from ' + file);
     },
