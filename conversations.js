@@ -5,7 +5,7 @@
 
   messageCheck.Conversations = function() {
     this.total = 0;
-    this.messageList = {};
+    this.conversationList = {};
   };
 
   messageCheck.Conversations.prototype = {
@@ -17,7 +17,7 @@
       });
     },
     forEach: function(cb) {
-      messageCheck.getMessages().messageList.map(key => {
+      messageCheck.getMessages().conversationList.map(key => {
         cb(key);
       });
     }
