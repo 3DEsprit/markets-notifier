@@ -1,13 +1,12 @@
 (function() {
   // watch intervals and start searching
   var nextTime, lastTime, waitTime = 0, pollTime = 15000;
-  const Utilities = new messageChecker.Utilities;
   const Preferences = new messageChecker.Preferences;
+  const Conversations = new messageChecker.Conversations;
 
   function checkInbox() {
-    Utilities.fetchPage(window.inboxUrl, out => {
-      console.log(out.match('conversations'));
-    });
+    Conversations.initConversations();
+    Conversations.map();
   }
 
   function updateList() {
