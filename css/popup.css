@@ -28,6 +28,10 @@ div {
   text-decoration: none;
 }
 
+.message-image {
+  border-radius: 50%;
+}
+
 .content-block {
   color: black;
   justify-content: flex-start;
