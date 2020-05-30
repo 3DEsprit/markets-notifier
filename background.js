@@ -5,8 +5,9 @@
   let convoMembers = messageChecker.setupConversations();
 
   function checkInbox() {
-    Conversations.initList();
-    Conversations.forEach();
+    Conversations.initList(list => {
+      console.log(list);
+    });
   }
 
   function updateList() {
