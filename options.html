@@ -5,9 +5,19 @@
   </head>
   <body>
     <div>
-      <p>Choose filter</p>
-      <input>
+      <div>
+        <label>
+          <input id="notifications" type="checkbox">
+          Enable Notifications
+        </label>
+      </div>
+      <div>
+        <p>Set project names you want to be notified of, <i>and separate each project with a comma.</i></p>
+        <input id="filters">
+        <button id="filter-submit">Save Filters</button>
+      </div>
     </div>
   </body>
+  <script src="preferences.js"></script>
   <script src="options.js"></script>
 </html>

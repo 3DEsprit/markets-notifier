@@ -1,16 +1,20 @@
-let page = document.getElementById('buttonDiv');
-const kButtonColors = ['#3aa757', '#e8453c', '#f9bb2d', '#4688f1'];
+(function() {
+  // change interval and reply list types
+  window.messageChecker = window.messageChecker || {};
 
-function constructOptions(kButtonColors) {
-  for (let item of kButtonColors) {
-    let button = document.createElement('button');
-    button.style.backgroundColor = item;
-    button.addEventListener('click', function() {
-      chrome.storage.sync.set({color: item}, function() {
-        console.log('color is ' + item);
-      })
+  let Preferences = new messageChecker.Preferences;
+
+  let notificationSetting = document.getElementById('notifications');
+  Preferences.get('notifications', notes => {
+    notificationSetting.checked = notes;
+    notificationSetting.addEventListener('click', () => {
+      Preferences.set('notifications', notif.checked);
     });
-    page.appendChild(button);
-  }
-}
-constructOptions(kButtonColors);
+  });
+
+  let submitButton = document.getElementById('filter-submit');
+  submitButton.addEventListener('click', function() {
+    let filterData = document.getElementById('filters');
+    Preferences.set('filter', filterData);
+  });
+})();
