@@ -1,17 +1,19 @@
 (function() {
-  // add replies to list object
   window.messageChecker = window.messageChecker || {};
+  const Utilities = new messageChecker.Utilities;
 
-  messageChecker.Account = function() {};
+  messageChecker.Account = function() {
+    this.user = undefined;
+    this.enabled = false;
+  };
 
   messageChecker.Account.prototype = {
-    checkLoginStatus: () => {
-      Utilities.fetchPage(window.inboxUrl, out => {
+    checkLoginStatus: function() {
+      Utilities.fetchPage(window.baseUrl, function(out) {
         if (!out.querySelector('.login-signup-wrap')) {
-          // show solid icon
+          return { enabled: true, user: out.firstElementChild.firstElementChild.innerText };
         } else {
-          // not logged in
-          // inform user on popup
+          return { enabled: false, user: undefined };
         }
       });
     }
