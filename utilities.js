@@ -40,7 +40,7 @@
 
     parsePreview: preview => {
       let link = `${window.baseUrl}${preview.getAttribute('href')}`
-      let unread = preview.querySelector('.unread') || false;
+      let unread = preview.classList.toString().includes('unread');
       let media = preview.querySelector('.conversation-preview--media').style.backgroundImage;
       let subject = preview.querySelector('.conversation-preview--subject');
       let product = preview.querySelector('.conversation-preview--product');
