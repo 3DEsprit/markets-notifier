@@ -41,17 +41,19 @@
     },
 
     parsePreview: preview => {
-      let link = preview.href
+      let link = `https://blendermarket.com${preview.getAttribute('href')}`
       let media = preview.querySelector('.conversation-preview--media').style.backgroundImage;
       let subject = preview.querySelector('.conversation-preview--subject');
       let product = preview.querySelector('.conversation-preview--product');
 
       if (product && product.innerText) {
         product = product.innerText.replace(/^Re: /, '');
+      } else {
+        product = 'General';
       }
 
       if (subject && subject.innerText) {
-        subject = subject.innerText;
+        subject = subject.innerText.replace(/^Re: /, '');
       }
 
       return {
