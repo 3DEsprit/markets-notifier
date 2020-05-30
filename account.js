@@ -1,6 +1,5 @@
 (function() {
   window.messageChecker = window.messageChecker || {};
-  const Utilities = new messageChecker.Utilities;
 
   messageChecker.Account = function() {
     this.user = undefined;
@@ -8,14 +7,12 @@
   };
 
   messageChecker.Account.prototype = {
-    checkLoginStatus: function() {
-      Utilities.fetchPage(window.baseUrl, function(out) {
-        if (!out.querySelector('.login-signup-wrap')) {
-          return { enabled: true, user: out.firstElementChild.firstElementChild.innerText };
-        } else {
-          return { enabled: false, user: undefined };
-        }
-      });
+    checkLoginStatus: (page, cb) => {
+      if (!page.querySelector('.login-signup-wrap')) {
+        cb({ enabled: true, user: page.querySelector('.account-link-nav').innerText });
+      } else {
+        cb({ enabled: false, user: undefined });
+      }
     }
   };
 
