@@ -43,7 +43,7 @@
 
     let messageImage = document.createElement('img');
     messageImage.setAttribute('class', 'message-image');
-    messageImage.background = message.media;
+    messageImage.setAttribute('src', `https:${message.media}`);
     messageBlock.href = message.link;
 
     messageHeader.innerHTML = message.product;
