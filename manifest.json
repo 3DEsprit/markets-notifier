@@ -17,9 +17,10 @@
   "background": {
     "scripts": [
       "utilities.js",
-      "background.js",
-      "replies.js",
-      "preferences.js"
+      "account.js",
+      "preferences.js",
+      "conversations.js",
+      "background.js"
     ],
     "persistent": false
   },
