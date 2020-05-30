@@ -9,15 +9,15 @@
   };
 
   messageChecker.Conversations.prototype = {
-    initConversations: () => {
+    checkList: () => {
       Utilities.fetchPage(window.inboxUrl, out => {
         this.conversationList = out.querySelector('.conversations').children;
         return this.conversationList;
       });
     },
-    map: () => {
-      [].forEach.call(this.conversationList, convo => {
-        let previewObject =  parsePreview(convo.querySelector('conversation-inner'))
+    forEach: () => {
+      [].forEach.call(this.conversationList, conversation => {
+        let previewObject =  parsePreview(conversation.querySelector('conversation-inner'))
         console.log(previewObject)
       });
     },
@@ -35,8 +35,8 @@
   };
 
   // make single instance for extension
-  messageChecker.getMessages = () => {
-    var background = chrome.extension.getBackgroundPage();
+  messageChecker.buildConversations = () => {
+    let background = chrome.extension.getBackgroundPage();
     if (!Object.prototype.hasOwnProperty.call(background.messageChecker, 'Conversations')) {
       background.messageChecker.Conversations = new messageChecker.Conversations;
     }
