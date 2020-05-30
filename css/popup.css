@@ -1,5 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;1,300&display=swap');
+
+div {
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+}
 
 .message-list {
+  justify-content: center;
   width: 300px;
-  text-align: center;
+}
+
+.message-block {
+  display: flex;
+  margin: 4px;
+  justify-content: flex-start;
+  text-decoration: none;
+}
+
+.content-block {
+  color: black;
+  justify-content: flex-start;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 240px;
+}
+
+.message-header {
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.message-image {
+  height: 30px;
+  width: 30px;
+  padding: 4px;
+}
+
+.message-body {
+  margin: 2px;
 }
