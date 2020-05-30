@@ -5,7 +5,18 @@ div {
   font-weight: 300;
 }
 
+.user {
+  position: fixed;
+  top: 0;
+  font-size: 20;
+  font-weight: 400;
+  background-color: white;
+  width: 100%;
+  padding: 8px;
+}
+
 .message-list {
+  margin-top: 36px;
   justify-content: center;
   width: 300px;
 }
