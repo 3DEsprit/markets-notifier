@@ -1,14 +1,12 @@
 (function() {
   window.messageChecker = window.messageChecker || {};
 
+  window.baseUrl = 'https://blendermarket.com';
   window.inboxUrl = 'https://blendermarket.com/inbox';
 
   messageChecker.Utilities = function() {};
 
   messageChecker.Utilities.prototype = {
-    callConsole: file => {
-      console.log('FooFunc prototype loaded from ' + file);
-    },
 
     fetchPageXhr: (url, cb) => {
       let xhr = new XMLHttpRequest();
@@ -41,7 +39,7 @@
     },
 
     parsePreview: preview => {
-      let link = `https://blendermarket.com${preview.getAttribute('href')}`
+      let link = `${window.baseUrl}${preview.getAttribute('href')}`
       let media = preview.querySelector('.conversation-preview--media').style.backgroundImage;
       let subject = preview.querySelector('.conversation-preview--subject');
       let product = preview.querySelector('.conversation-preview--product');

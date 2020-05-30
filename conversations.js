@@ -1,5 +1,4 @@
 (function() {
-  // add replies to list object
   window.messageChecker = window.messageChecker || {};
   const Utilities = new messageChecker.Utilities;
 
