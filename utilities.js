@@ -31,11 +31,25 @@
         return res.text();
       })
       .then(text => {
-        cb(text);
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(text, 'text/html');
+        cb(doc);
       })
       .catch(err => {
         console.log(url, err);
       });
+    },
+
+    parsePreview: preview => {
+      let media = preview.querySelector('.conversation-preview-media')
+      let subject = preview.querySelector('.conversation-preview--subject')
+      let product = preview.querySelector('.conversation-preview--product')
+
+      return {
+        media,
+        subject,
+        product
+      }
     },
 
     timePoll: (pollTime, waitTime, cb) => {
