@@ -12,14 +12,16 @@
       this.conversationList = [];
 
       Utilities.fetchPage(window.inboxUrl, out => {
-        if (out.querySelector('.conversations').children.length) {
-          [].forEach.call(out.querySelector('.conversations').children, conversation => {
+        let convoList = out.querySelector('.conversations').children
+        if (convoList.length) {
+          this.total = convoList.length;
+          console.log(this.total);
+          [].forEach.call(convoList, conversation => {
             // eslint-disable-next-line no-cond-assign
             if (inner = conversation.querySelector('.conversation-inner')) {
               this.conversationList.push(Utilities.parsePreview(inner))
             }
           });
-          console.log(this.conversationList);
         }
 
         cb(this.conversationList);
