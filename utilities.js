@@ -40,6 +40,7 @@
 
     parsePreview: preview => {
       let link = `${window.baseUrl}${preview.getAttribute('href')}`
+      let unread = preview.querySelector('.unread') || false;
       let media = preview.querySelector('.conversation-preview--media').style.backgroundImage;
       let subject = preview.querySelector('.conversation-preview--subject');
       let product = preview.querySelector('.conversation-preview--product');
@@ -54,11 +55,16 @@
         subject = subject.innerText.replace(/^Re: /, '');
       }
 
+      if (media) {
+        media = media.slice(4, -1).replace(/"/g, '');
+      }
+
       return {
         link,
         media,
         subject,
-        product
+        product,
+        unread
       }
     },
 
