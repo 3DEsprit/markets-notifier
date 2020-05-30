@@ -41,11 +41,21 @@
     },
 
     parsePreview: preview => {
-      let media = preview.querySelector('.conversation-preview-media')
-      let subject = preview.querySelector('.conversation-preview--subject')
-      let product = preview.querySelector('.conversation-preview--product')
+      let link = preview.href
+      let media = preview.querySelector('.conversation-preview--media').style.backgroundImage;
+      let subject = preview.querySelector('.conversation-preview--subject');
+      let product = preview.querySelector('.conversation-preview--product');
+
+      if (product && product.innerText) {
+        product = product.innerText.replace(/^Re: /, '');
+      }
+
+      if (subject && subject.innerText) {
+        subject = subject.innerText;
+      }
 
       return {
+        link,
         media,
         subject,
         product
