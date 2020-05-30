@@ -3,39 +3,33 @@
   window.messageChecker = window.messageChecker || {};
   const Utilities = new messageChecker.Utilities;
 
-  messageChecker.Conversations = () => {
+  messageChecker.Conversations = function() {
     this.total = 0;
-    this.conversationList = {};
+    this.conversationList = [];
   };
 
   messageChecker.Conversations.prototype = {
-    checkList: () => {
-      Utilities.fetchPage(window.inboxUrl, out => {
-        this.conversationList = out.querySelector('.conversations').children;
-        return this.conversationList;
-      });
-    },
-    forEach: () => {
-      [].forEach.call(this.conversationList, conversation => {
-        let previewObject =  parsePreview(conversation.querySelector('conversation-inner'))
-        console.log(previewObject)
-      });
-    },
-    parsePreview: preview => {
-      let media = preview.querySelector('.conversation-preview-media')
-      let subject = preview.querySelector('.conversation-preview--subject')
-      let product = preview.querySelector('.conversation-preview--product')
+    initList: cb => {
+      this.conversationList = [];
 
-      return {
-        media,
-        subject,
-        product
-      }
+      Utilities.fetchPage(window.inboxUrl, out => {
+        if (out.querySelector('.conversations').children.length) {
+          [].forEach.call(out.querySelector('.conversations').children, conversation => {
+            // eslint-disable-next-line no-cond-assign
+            if (inner = conversation.querySelector('.conversation-inner')) {
+              this.conversationList.push(Utilities.parsePreview(inner))
+            }
+          });
+          console.log(this.conversationList);
+        }
+
+        cb(this.conversationList);
+      });
     }
   };
 
   // make single instance for extension
-  messageChecker.buildConversations = () => {
+  messageChecker.setupConversations = function() {
     let background = chrome.extension.getBackgroundPage();
     if (!Object.prototype.hasOwnProperty.call(background.messageChecker, 'Conversations')) {
       background.messageChecker.Conversations = new messageChecker.Conversations;
