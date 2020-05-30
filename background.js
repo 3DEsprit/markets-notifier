@@ -1,8 +1,7 @@
 (function() {
-  // watch intervals and start searching
   var nextTime, lastTime, waitTime = 0, pollTime = 15000;
   const Preferences = new messageChecker.Preferences;
-  const Conversations = new messageChecker.Conversations;
+  const Conversations = messageChecker.buildConversations();
 
   function checkInbox() {
     Conversations.initConversations();
@@ -27,12 +26,27 @@
       }
     });
 
-    if(nextTime !== undefined) {
-      if(Date.now() >= nextTime) {
+    if (nextTime !== undefined) {
+      if (Date.now() >= nextTime) {
         console.log('timeout');
         checkInbox();
       }
     }
+  }
+
+  function _statusUpdate() {
+    console.log('update notification status');
+    Preferences.get('notifications', store => {
+      status = store;
+      if (status && nextTime) {
+        if (Conversations.total > 0) {
+          new Notification('BlenderMarket Inbox', {
+            icon: chrome.extension.getURL('icon.png'),
+            body: `${Conversations.total.toString()} messages`
+          });
+        }
+      }
+    });
   }
 
   function start() {
