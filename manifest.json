@@ -4,6 +4,8 @@
   "description": "Custom Inbox Nofications",
   "permissions": [
     "activeTab",
+    "contextMenus",
+    "cookies",
     "notifications",
     "declarativeContent",
     "storage",
@@ -16,8 +18,8 @@
   },
   "background": {
     "scripts": [
-      "utilities.js",
       "account.js",
+      "utilities.js",
       "preferences.js",
       "conversations.js",
       "background.js"
