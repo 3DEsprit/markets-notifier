@@ -3,9 +3,7 @@
 
   window.inboxUrl = 'https://blendermarket.com/inbox';
 
-  messageChecker.Utilities = () => {
-    this.messageChecker = '';
-  };
+  messageChecker.Utilities = function() {};
 
   messageChecker.Utilities.prototype = {
     callConsole: file => {

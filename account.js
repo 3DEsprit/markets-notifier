@@ -2,7 +2,7 @@
   // add replies to list object
   window.messageChecker = window.messageChecker || {};
 
-  messageChecker.Account = () => {};
+  messageChecker.Account = function() {};
 
   messageChecker.Account.prototype = {
     checkLoginStatus: () => {
@@ -18,7 +18,7 @@
   };
 
   // make single instance for extension
-  messageChecker.setupAccount = () => {
+  messageChecker.setupAccount = function() {
     var background = chrome.extension.getBackgroundPage();
     if (!Object.prototype.hasOwnProperty.call(background.messageChecker, 'Account')) {
       background.messageChecker.Account = new messageChecker.Account;

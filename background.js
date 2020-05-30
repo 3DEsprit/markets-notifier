@@ -1,15 +1,16 @@
 (function() {
-  var nextTime, lastTime, waitTime = 0, pollTime = 15000;
+  let nextTime, lastTime, waitTime = 0, pollTime = 15000;
   const Preferences = new messageChecker.Preferences;
-  const Conversations = messageChecker.buildConversations();
+  const Conversations = new messageChecker.Conversations;
+  let convoMembers = messageChecker.setupConversations();
 
   function checkInbox() {
-    Conversations.initConversations();
-    Conversations.map();
+    Conversations.initList();
+    Conversations.forEach();
   }
 
   function updateList() {
-    var oldTime = waitTime;
+    let oldTime = waitTime;
     Preferences.get('waitTime', store => {
       waitTime = store;
       if (waitTime === 0) {
@@ -39,7 +40,7 @@
     Preferences.get('notifications', store => {
       status = store;
       if (status && nextTime) {
-        if (Conversations.total > 0) {
+        if (convoMembers.total > 0) {
           new Notification('BlenderMarket Inbox', {
             icon: chrome.extension.getURL('icon.png'),
             body: `${Conversations.total.toString()} messages`
