@@ -4,6 +4,7 @@
   "description": "Custom Inbox Nofications",
   "permissions": [
     "activeTab",
+    "background",
     "contextMenus",
     "cookies",
     "notifications",
@@ -26,7 +27,7 @@
     ],
     "persistent": false
   },
-  "page_action": {
+  "browser_action": {
     "default_popup": "popup.html",
     "default_icon": {
       "16": "images/get_started16.png",
