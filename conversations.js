@@ -1,34 +1,45 @@
 (function() {
   // add replies to list object
-  window.messageCheck = window.messageCheck || {};
-  const Utilities = new messageCheck.Utilities;
+  window.messageChecker = window.messageChecker || {};
+  const Utilities = new messageChecker.Utilities;
 
-  messageCheck.Conversations = function() {
+  messageChecker.Conversations = () => {
     this.total = 0;
     this.conversationList = {};
   };
 
-  messageCheck.Conversations.prototype = {
-    checkList: function() {
+  messageChecker.Conversations.prototype = {
+    initConversations: () => {
       Utilities.fetchPage(window.inboxUrl, out => {
-        if (out) {
-          console.log(out);
-        }
+        this.conversationList = out.querySelector('.conversations').children;
+        return this.conversationList;
       });
     },
-    forEach: function(cb) {
-      messageCheck.getMessages().conversationList.map(key => {
-        cb(key);
+    map: () => {
+      [].forEach.call(this.conversationList, convo => {
+        let previewObject =  parsePreview(convo.querySelector('conversation-inner'))
+        console.log(previewObject)
       });
+    },
+    parsePreview: preview => {
+      let media = preview.querySelector('.conversation-preview-media')
+      let subject = preview.querySelector('.conversation-preview--subject')
+      let product = preview.querySelector('.conversation-preview--product')
+
+      return {
+        media,
+        subject,
+        product
+      }
     }
   };
 
   // make single instance for extension
-  messageCheck.getMessages = function() {
+  messageChecker.getMessages = () => {
     var background = chrome.extension.getBackgroundPage();
-    if (!Object.prototype.hasOwnProperty.call(background.messageCheck, 'Conversations')) {
-      background.messageCheck.Conversations = new messageCheck.Conversations;
+    if (!Object.prototype.hasOwnProperty.call(background.messageChecker, 'Conversations')) {
+      background.messageChecker.Conversations = new messageChecker.Conversations;
     }
-    return background.messageCheck.Conversations;
+    return background.messageChecker.Conversations;
   };
 })();
