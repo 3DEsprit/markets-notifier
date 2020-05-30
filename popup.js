@@ -1,11 +1,29 @@
 (function() {
-  // Popup Content Script
   const Conversations = new messageChecker.Conversations;
+  const Account = new messageChecker.Account;
+  const Utilities = new messageChecker.Utilities;
   var console, backgroundPage = chrome.extension.getBackgroundPage();
 
   if (backgroundPage) {
     console = backgroundPage.console
     console.log('Popup loaded');
+  }
+
+  function loginContent() {
+    let messageList = document.querySelector('.message-list');
+    let messageBlock = document.createElement('div');
+    messageBlock.setAttribute('target', '_inbox');
+    messageBlock.setAttribute('class', 'message-block');
+    messageBlock.innerText = 'Please log into the Blender Market';
+    messageList.append(messageBlock);
+  }
+
+  function setUserName(user) {
+    let messageList = document.querySelector('.message-list');
+    let userBlock = document.createElement('div');
+    userBlock.setAttribute('class', 'user');
+    userBlock.innerHTML = `User: ${user}`;
+    messageList.append(userBlock);
   }
 
   function buildContent(message) {
@@ -25,7 +43,7 @@
 
     let messageImage = document.createElement('img');
     messageImage.setAttribute('class', 'message-image');
-    messageImage.style = message.media;
+    messageImage.background = message.media;
     messageBlock.href = message.link;
 
     messageHeader.innerHTML = message.product;
@@ -39,8 +57,19 @@
   }
 
   function populateList() {
-    Conversations.initList(messages => {
-      messages.map(message => buildContent(message))
+    Utilities.fetchPage(window.baseUrl, page => {
+      Account.checkLoginStatus(page, loginStatus => {
+        console.log(loginStatus);
+        if(loginStatus.enabled) {
+          setUserName(loginStatus.user);
+          Conversations.initList(messages => {
+            console.log(messages);
+            messages.map(message => buildContent(message))
+          });
+        } else {
+          loginContent();
+        }
+      });
     });
   }
 
