@@ -21,6 +21,14 @@ div {
   width: 300px;
 }
 
+.user-logged-out {
+  margin: 10px;
+  margin-bottom: 30px;
+  font-size: 20px;
+  font-weight: 400;
+  text-align: center;
+}
+
 .message-block {
   display: flex;
   margin: 4px;

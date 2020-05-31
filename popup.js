@@ -12,7 +12,7 @@
     let messageList = document.querySelector('.message-list');
     let messageBlock = document.createElement('div');
     messageBlock.setAttribute('target', '_inbox');
-    messageBlock.setAttribute('class', 'message-block');
+    messageBlock.setAttribute('class', 'user-logged-out');
     messageBlock.innerText = 'Please log into the Blender Market';
     messageList.append(messageBlock);
   }

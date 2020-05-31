@@ -1,7 +1,7 @@
 {
-  "name": "Markets Notifier",
+  "name": "BlenderMarket Notifier",
   "version": "1.0",
-  "description": "Custom Inbox Nofications",
+  "description": "Custom Inbox Chrome Extension",
   "permissions": [
     "activeTab",
     "background",
