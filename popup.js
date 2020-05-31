@@ -2,10 +2,9 @@
   const Conversations = new messageChecker.Conversations;
   const Account = new messageChecker.Account;
   const Utilities = new messageChecker.Utilities;
-  var console, backgroundPage = chrome.extension.getBackgroundPage();
+  var console = chrome.extension.getBackgroundPage().console;
 
-  if (backgroundPage) {
-    console = backgroundPage.console
+  if (console) {
     console.log('Popup loaded');
   }
 
@@ -47,7 +46,7 @@
     messageBlock.href = message.link;
 
     messageHeader.innerHTML = message.product;
-    messageBody.innerHTML = message.subject;
+    messageBody.innerHTML = message.subject.data;
     contentBlock.append(messageHeader);
     contentBlock.append(messageBody);
     messageBlock.append(messageImage);
@@ -59,7 +58,6 @@
   function populateList() {
     Utilities.fetchPage(window.baseUrl, page => {
       Account.checkLoginStatus(page, loginStatus => {
-        console.log(loginStatus);
         if(loginStatus.enabled) {
           setUserName(loginStatus.user);
           Conversations.initList(messages => {
@@ -73,11 +71,5 @@
     });
   }
 
-  // call object from background here
-  function start() {
-    console.log('Starting Popup ' + chrome.app.getDetails().version);
-    populateList();
-  }
-
-  start();
+  populateList();
 })();
