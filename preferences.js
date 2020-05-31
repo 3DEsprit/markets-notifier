@@ -5,7 +5,8 @@
   messageChecker.Preferences = function() {
     this.settings = {
       options: {
-        pollTime: 15000,
+        lastTime: 0,
+        pollTime: 10000,
         waitTime: 15,
         notifications: true,
         filters: []
