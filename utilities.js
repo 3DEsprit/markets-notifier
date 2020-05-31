@@ -42,8 +42,10 @@
       let link = `${window.baseUrl}${preview.getAttribute('href')}`
       let unread = preview.classList.toString().includes('unread');
       let media = preview.querySelector('.conversation-preview--media').style.backgroundImage;
-      let subject = preview.querySelector('.conversation-preview--subject');
+      let subjectBlock = preview.querySelector('.conversation-preview--subject')
       let product = preview.querySelector('.conversation-preview--product');
+      let subject = subjectBlock.childNodes[0];
+      let time = subjectBlock.querySelector('.time').firstElementChild.dateTime
 
       if (product && product.innerText) {
         product = product.innerText.replace(/^Re: /, '');
@@ -62,8 +64,9 @@
       return {
         link,
         media,
-        subject,
         product,
+        subject,
+        time,
         unread
       }
     },
