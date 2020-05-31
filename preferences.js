@@ -7,7 +7,8 @@
       options: {
         pollTime: 15000,
         waitTime: 15,
-        notifications: true
+        notifications: true,
+        filters: []
       }
     }
   };
