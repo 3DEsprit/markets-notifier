@@ -1,5 +1,6 @@
 (function() {
   window.messageChecker = window.messageChecker || {};
+  var console = chrome.extension.getBackgroundPage().console;
 
   window.baseUrl = 'https://blendermarket.com';
   window.inboxUrl = 'https://blendermarket.com/inbox';
