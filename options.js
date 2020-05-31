@@ -13,10 +13,8 @@
   let notificationCheckbox = document.querySelector('input[name=notifications]');
   Preferences.get('notifications', savedSetting => {
     notificationCheckbox.checked = savedSetting || false;
-    console.log(notificationCheckbox.checked)
 
     notificationCheckbox.addEventListener('change', () => {
-      console.log(notificationCheckbox.checked)
       Preferences.set('notifications', notificationCheckbox.checked);
     });
   });
