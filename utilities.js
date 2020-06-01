@@ -1,6 +1,10 @@
 (function() {
   window.messageChecker = window.messageChecker || {};
-  var console = chrome.extension.getBackgroundPage().console;
+  var console, background = chrome.extension.getBackgroundPage();
+
+  if (background) {
+    console = background.console
+  }
 
   window.baseUrl = 'https://blendermarket.com';
   window.inboxUrl = 'https://blendermarket.com/inbox';
