@@ -12,7 +12,7 @@
         if (loginStatus.enabled) {
           Conversations.initList(list => {
             checkList(list);
-            if(cb) cb(list);
+            if(cb) cb(list.length);
           });
         }
       });
@@ -70,5 +70,5 @@
 
   checkTime = setInterval(checkInbox, pollTime);
 
-  checkInbox(list => statusUpdate(list));
+  checkInbox(listLength => statusUpdate(listLength));
 })();
