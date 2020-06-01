@@ -7,7 +7,7 @@
   }
 
   window.baseUrl = 'https://blendermarket.com';
-  window.inboxUrl = 'https://blendermarket.com/inbox';
+  window.inboxUrl = 'https://blendermarket.com/inbox?sort_status=0';
 
   messageChecker.Utilities = function() {};
 
