@@ -4,27 +4,39 @@
   const Utilities = new messageChecker.Utilities;
 
   function loginContent() {
-    let messageList = document.querySelector('.message-list');
-    let messageBlock = document.createElement('div');
+    let messageBlock = document.querySelector('.user');
     messageBlock.setAttribute('target', '_inbox');
-    messageBlock.setAttribute('class', 'user-logged-out');
+    messageBlock.setAttribute('class', 'user user-logged-out');
     messageBlock.innerText = 'Please log into the Blender Market';
-    messageList.append(messageBlock);
+  }
+
+  function createInboxButton(userBlock) {
+    let inboxButton = document.createElement('a');
+    inboxButton.setAttribute('class', 'button inbox-button');
+    inboxButton.setAttribute('href', window.inboxUrl);
+    inboxButton.setAttribute('target', '_inbox');
+    inboxButton.innerHTML = 'INBOX';
+
+    userBlock.append(inboxButton);
   }
 
   function setUserName(user) {
-    let messageList = document.querySelector('.message-list');
-    let userBlock = document.createElement('div');
-    userBlock.setAttribute('class', 'user ellipsis');
-    userBlock.innerHTML = `User: ${user}`;
-    messageList.append(userBlock);
+    let userBlock = document.querySelector('.user');
+    userBlock.setAttribute('class', 'user-block');
+
+    let userContent = document.createElement('div');
+    userContent.setAttribute('class', 'user-content ellipsis');
+    userContent.innerHTML = `User: ${user}`;
+
+    userBlock.append(userContent);
+    createInboxButton(userBlock);
   }
 
   function buildContent(message) {
     let messageList = document.querySelector('.message-list');
     let messageBlock = document.createElement('a');
     messageBlock.setAttribute('target', '_inbox');
-    messageBlock.setAttribute('class', 'message-block');
+    messageBlock.setAttribute('class', 'button message-block');
 
     let contentBlock = document.createElement('div');
     contentBlock.setAttribute('class', 'content-block ellipsis');
