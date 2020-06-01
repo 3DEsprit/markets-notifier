@@ -2,11 +2,6 @@
   const Conversations = new messageChecker.Conversations;
   const Account = new messageChecker.Account;
   const Utilities = new messageChecker.Utilities;
-  var console = chrome.extension.getBackgroundPage().console;
-
-  if (console) {
-    console.log('Popup loaded');
-  }
 
   function loginContent() {
     let messageList = document.querySelector('.message-list');
@@ -61,7 +56,6 @@
         if(loginStatus.enabled) {
           setUserName(loginStatus.user);
           Conversations.initList(messages => {
-            console.log(messages);
             messages.map(message => buildContent(message))
           });
         } else {
