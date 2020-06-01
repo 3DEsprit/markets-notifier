@@ -55,7 +55,7 @@
   function messageNotification(message) {
     new Notification(`New Message for ${message.product}`, {
       icon: chrome.extension.getURL('images/notification_icon_128.png'),
-      body: `${message.subject}`
+      body: `${message.subject.data}`
     });
   }
 
