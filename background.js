@@ -6,11 +6,14 @@
   const Preferences = new messageChecker.Preferences;
   const Conversations = new messageChecker.Conversations;
 
-  function checkInbox() {
+  function checkInbox(cb = null) {
     Utilities.fetchPage(window.baseUrl, page => {
       Account.checkLoginStatus(page, loginStatus => {
         if (loginStatus.enabled) {
-          Conversations.initList(list => checkList(list));
+          Conversations.initList(list => {
+            checkList(list);
+            if(cb) cb(list);
+          });
         }
       });
     });
@@ -26,11 +29,10 @@
         if (isEnabled) {
           list.map(message => {
             if (lastTime < new Date(message.time)) {
-              console.log(`new message ${message}`)
+              console.log(`${currentTime} - ${lastTime}: new message ${message.product} ${message.time}`)
               messageNotification(message);
             }
           })
-          statusUpdate(list.length);
         }
       })
 
@@ -68,5 +70,5 @@
 
   checkTime = setInterval(checkInbox, pollTime);
 
-  checkInbox();
+  checkInbox(list => statusUpdate(list));
 })();
