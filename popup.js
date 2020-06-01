@@ -15,7 +15,7 @@
   function setUserName(user) {
     let messageList = document.querySelector('.message-list');
     let userBlock = document.createElement('div');
-    userBlock.setAttribute('class', 'user');
+    userBlock.setAttribute('class', 'user ellipsis');
     userBlock.innerHTML = `User: ${user}`;
     messageList.append(userBlock);
   }
@@ -27,7 +27,7 @@
     messageBlock.setAttribute('class', 'message-block');
 
     let contentBlock = document.createElement('div');
-    contentBlock.setAttribute('class', 'content-block');
+    contentBlock.setAttribute('class', 'content-block ellipsis');
 
     let messageHeader = document.createElement('div');
     messageHeader.setAttribute('class', 'message-header');

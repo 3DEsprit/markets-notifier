@@ -5,6 +5,10 @@ div {
   font-weight: 300;
 }
 
+body {
+  margin: 0;
+}
+
 .user {
   position: fixed;
   top: 0;
@@ -12,11 +16,12 @@ div {
   font-weight: 400;
   background-color: white;
   width: 100%;
-  padding: 8px;
+  padding: 10px;
+  border-bottom: 1px solid black;
 }
 
 .message-list {
-  margin-top: 36px;
+  margin-top: 50px;
   justify-content: center;
   width: 300px;
 }
@@ -24,6 +29,7 @@ div {
 .user-logged-out {
   margin: 10px;
   margin-bottom: 30px;
+  border-bottom-width: 1px;
   font-size: 20px;
   font-weight: 400;
   text-align: center;
@@ -40,12 +46,15 @@ div {
   border-radius: 50%;
 }
 
-.content-block {
-  color: black;
-  justify-content: flex-start;
+.ellipsis {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.content-block {
+  color: black;
+  justify-content: flex-start;
   width: 240px;
 }
 
