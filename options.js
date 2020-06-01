@@ -1,12 +1,6 @@
 (function() {
   // change interval and reply list types
   window.messageChecker = window.messageChecker || {};
-  let background = chrome.extension.getBackgroundPage();
-
-  if(background) {
-    let console = background.console
-    console.log('options loaded')
-  }
 
   let Preferences = new messageChecker.Preferences;
 
@@ -19,9 +13,14 @@
     });
   });
 
-  let submitButton = document.getElementById('filter-submit')
-  submitButton.addEventListener('click', function() {
-    let filterData = document.getElementById('filters');
-    Preferences.set('filter', filterData.value);
+  let submitButton = document.getElementById('filter-submit');
+  let filterData = document.getElementById('filters');
+
+  Preferences.get('filters', savedFilters => {
+    filterData.value = savedFilters;
+
+    submitButton.addEventListener('click', function() {
+      Preferences.set('filters', filterData.value);
+    });
   });
 })();
