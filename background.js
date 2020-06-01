@@ -32,9 +32,9 @@
               console.log(`${currentTime} - ${lastTime}: new message ${message.product} ${message.time}`)
               messageNotification(message);
             }
-          })
+          });
         }
-      })
+      });
 
       Preferences.set('lastTime', new Date().valueOf());
       badgeUpdate(list.length);
@@ -53,9 +53,15 @@
   }
 
   function messageNotification(message) {
-    new Notification(`New Message for ${message.product}`, {
-      icon: chrome.extension.getURL('images/notification_icon_128.png'),
-      body: `${message.subject.data}`
+    Preferences.get('filters', savedFilters => {
+      savedFilters.replace(' ', '').split(',').forEach(filter => {
+        if(message.product.includes(filter)) {
+          new Notification(`New Message for ${message.product}`, {
+            icon: chrome.extension.getURL('images/notification_icon_128.png'),
+            body: `${message.subject.data}`
+          });
+        }
+      });
     });
   }
 
