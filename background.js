@@ -54,8 +54,8 @@
 
   function messageNotification(message) {
     Preferences.get('filters', savedFilters => {
-      savedFilters.replace(' ', '').split(',').forEach(filter => {
-        if(message.product.includes(filter)) {
+      savedFilters.toLowerCase().replace(' ', '').split(',').forEach(filter => {
+        if(message.product.toLowerCase().includes(filter)) {
           new Notification(`New Message for ${message.product}`, {
             icon: chrome.extension.getURL('images/notification_icon_128.png'),
             body: `${message.subject.data}`
