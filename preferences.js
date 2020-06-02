@@ -1,5 +1,4 @@
 (function() {
-  var console = chrome.extension.getBackgroundPage().console;
   window.messageChecker = window.messageChecker || {};
 
   messageChecker.Preferences = function() {
@@ -24,16 +23,6 @@
       chrome.storage.sync.get(this.settings, store => {
         store.options[key] = val;
         chrome.storage.sync.set(store);
-      });
-    },
-    getSync: function(key) {
-      chrome.storage.sync.get(this.settings, store => {
-        return (store.options[key]);
-      });
-    },
-    checkSettings: function() {
-      chrome.storage.sync.get(this.settings, store => {
-        console.log(store);
       });
     }
   };
