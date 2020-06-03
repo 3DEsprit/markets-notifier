@@ -1,5 +1,5 @@
 (function() {
-  const pollTime = 900000;
+  const pollTime = 300000;
 
   const Account = new messageChecker.Account;
   const Utilities = new messageChecker.Utilities;
