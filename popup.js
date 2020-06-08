@@ -3,6 +3,8 @@
   const Account = new messageChecker.Account;
   const Utilities = new messageChecker.Utilities;
 
+  MonthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
   function loginContent() {
     let messageBlock = document.querySelector('.user');
     messageBlock.setAttribute('target', '_inbox');
@@ -53,7 +55,9 @@
     messageBlock.href = message.link;
 
     messageHeader.innerHTML = message.product;
-    messageBody.innerHTML = message.subject.data;
+    let date = new Date(message.time);
+
+    messageBody.innerHTML = `${MonthNames[date.getMonth() + 1]} ${date.getDay() + 1} - ${message.subject.data}`;
     contentBlock.append(messageHeader);
     contentBlock.append(messageBody);
     messageBlock.append(messageImage);
