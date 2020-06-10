@@ -3,12 +3,8 @@
   "version": "1.0",
   "description": "Custom Inbox Chrome Extension",
   "permissions": [
-    "activeTab",
     "background",
-    "contextMenus",
-    "cookies",
     "notifications",
-    "declarativeContent",
     "storage",
     "https://blendermarket.com/"
   ],
