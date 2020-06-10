@@ -35,4 +35,16 @@ You can click the extension icon to get a list of the unread messages, and the d
 
 ## Options
 
-The filters options allows you to limit notifications to prodect names you provide as a comma-separated list; if the product is found in this list, you will receive notifications for that product.
+The filters options allows you to limit notifications to prodect names you provide as a comma-separated list of partial project names. For this to work, refrain from using spaces,
+and filter with a distinguing portion of the project name. 
+
+Example:
+
+__Project Name__: Super Special Project
+
+To match the project name, any of the following filters will work:
+
+_Super, Spec, Special, Project_
+
+When filtering mutliple projects, you will only need to filter the portion of the name
+that is unique.
