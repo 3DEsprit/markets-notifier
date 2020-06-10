@@ -2,6 +2,8 @@
 
 The Blender Market Notifier is a Chrome Extension to help Market creators and collaborators to have easy access to inbox messages while being notified of updates.
 
+![Extension](markets-quicklaunch.png)
+
 ## Installation
 
 ### Open the Extensions settings
@@ -34,6 +36,8 @@ The extension icon badge will give you a total count of unread messages (Does no
 You can click the extension icon to get a list of the unread messages, and the details of each one.
 
 ## Options
+
+![Options](markets-filters.png)
 
 The filters options allows you to limit notifications to prodect names you provide as a comma-separated list of partial project names. For this to work, refrain from using spaces,
 and filter with a distinguing portion of the project name. 
