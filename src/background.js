@@ -52,16 +52,24 @@
     }
   }
 
+  function sendMessage(message) {
+    new Notification(`New Message for ${message.product}`, {
+      icon: chrome.extension.getURL('images/notification_icon_128.png'),
+      body: `${message.subject.data}`
+    });
+  }
+
   function messageNotification(message) {
     Preferences.get('filters', savedFilters => {
-      savedFilters.toLowerCase().replace(' ', '').split(',').forEach(filter => {
-        if(message.product.toLowerCase().includes(filter)) {
-          new Notification(`New Message for ${message.product}`, {
-            icon: chrome.extension.getURL('images/notification_icon_128.png'),
-            body: `${message.subject.data}`
-          });
-        }
-      });
+      if(savedFilters === undefined) {
+        sendMessage(message);
+      } else {
+        savedFilters.toLowerCase().replace(' ', '').split(',').forEach(filter => {
+          if(message.product.toLowerCase().includes(filter)) {
+            sendMessage(message);
+          }
+        });
+      }
     });
   }
 
