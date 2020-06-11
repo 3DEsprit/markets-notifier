@@ -6,6 +6,11 @@ The Blender Market Notifier is a Chrome Extension to help Market creators and co
 
 ## Installation
 
+You can install the published extension on the [Chrome Web Store](https://chrome.google.com/webstore/detail/blendermarket-notifier/ejgkbphimalaiabdjadcnkfihnfkcmbp)
+
+
+## Development Installation
+
 ### Open the Extensions settings
 
 **Chrome:**
