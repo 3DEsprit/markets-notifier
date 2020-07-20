@@ -6,12 +6,12 @@
   const Preferences = new messageChecker.Preferences;
   const Conversations = new messageChecker.Conversations;
 
-  function checkInbox(notify, cb = null) {
+  function checkInbox(cb = null) {
     Utilities.fetchPage(window.baseUrl, page => {
       Account.checkLoginStatus(page, loginStatus => {
         if (loginStatus.enabled) {
           Conversations.initList(list => {
-            checkList(list, notify);
+            checkList(list);
             if(cb) cb(list.length);
           });
         }
@@ -19,16 +19,15 @@
     });
   }
 
-  function checkList(list, notify) {
+  function checkList(list) {
     console.log(`list: ${list.length}`)
-    let lastTime, currentTime = new Date();
+    let lastTime, currentTime = new Date(), update = false;
 
     Preferences.get('lastTime', savedLast => {
       lastTime = savedLast != {} ? new Date(savedLast) : currentTime;
 
       Preferences.get('notifications', isEnabled => {
-        if (isEnabled)
-          list.map(message => notify && lastTime < new Date(message.time) ? messageNotification(message) : null);
+        if (isEnabled) list.map(message => lastTime < new Date(message.time) ? messageNotification(message) : false);
       });
 
       Preferences.set('lastTime', new Date().valueOf());
@@ -76,11 +75,11 @@
 
   checkTime = setInterval(checkInbox, pollTime);
 
-  checkInbox(true, listLength => statusUpdate(listLength));
+  checkInbox(listLength => statusUpdate(listLength));
 
   // sync lookup on popup 
   // TODO refactor to single screen scrape
   chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    checkInbox(false, listLength => statusUpdate(listLength));
+    checkInbox();
   });
 })();
