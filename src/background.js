@@ -6,12 +6,12 @@
   const Preferences = new messageChecker.Preferences;
   const Conversations = new messageChecker.Conversations;
 
-  function checkInbox(cb = null) {
+  function checkInbox(notify, cb = null) {
     Utilities.fetchPage(window.baseUrl, page => {
       Account.checkLoginStatus(page, loginStatus => {
         if (loginStatus.enabled) {
           Conversations.initList(list => {
-            checkList(list);
+            checkList(list, notify);
             if(cb) cb(list.length);
           });
         }
@@ -19,21 +19,16 @@
     });
   }
 
-  function checkList(list) {
+  function checkList(list, notify) {
+    console.log(`list: ${list.length}`)
     let lastTime, currentTime = new Date();
 
     Preferences.get('lastTime', savedLast => {
       lastTime = savedLast != {} ? new Date(savedLast) : currentTime;
 
       Preferences.get('notifications', isEnabled => {
-        if (isEnabled) {
-          list.map(message => {
-            if (lastTime < new Date(message.time)) {
-              console.log(`${currentTime} - ${lastTime}: new message ${message.product} ${message.time}`)
-              messageNotification(message);
-            }
-          });
-        }
+        if (isEnabled)
+          list.map(message => notify && lastTime < new Date(message.time) ? messageNotification(message) : null);
       });
 
       Preferences.set('lastTime', new Date().valueOf());
@@ -42,8 +37,7 @@
   }
 
   function badgeUpdate(total) {
-    console.log('badge');
-    if(total > 0) {
+    if(total !== 0) {
       chrome.browserAction.setBadgeText({text: total.toString()});
       chrome.browserAction.setBadgeBackgroundColor({color: [185,0,0,255]});
     } else {
@@ -61,28 +55,26 @@
 
   function messageNotification(message) {
     Preferences.get('filters', savedFilters => {
-      if(savedFilters === undefined) {
-        sendMessage(message);
-      } else {
+      if(typeof savedFilters === String) {
         savedFilters.toLowerCase().replace(' ', '').split(',').forEach(filter => {
           if(message.product.toLowerCase().includes(filter)) {
             sendMessage(message);
           }
         });
+      } else {
+        sendMessage(message);
       }
     });
   }
 
   function statusUpdate(total) {
-    if (total > 0) {
-      new Notification('BlenderMarket Inbox', {
-        icon: chrome.extension.getURL('images/notification_icon_128.png'),
-        body: `${total ? total.toString() : '0'} messages`
-      });
-    }
+    new Notification('BlenderMarket Inbox', {
+      icon: chrome.extension.getURL('images/notification_icon_128.png'),
+      body: `${total ? total.toString() : '0'} messages`
+    });
   }
 
   checkTime = setInterval(checkInbox, pollTime);
 
-  checkInbox(listLength => statusUpdate(listLength));
+  checkInbox(true, listLength => statusUpdate(listLength));
 })();
