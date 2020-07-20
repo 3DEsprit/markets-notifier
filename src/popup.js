@@ -2,6 +2,7 @@
   const Conversations = new messageChecker.Conversations;
   const Account = new messageChecker.Account;
   const Utilities = new messageChecker.Utilities;
+  const port = chrome.runtime.connect({ name: "market_notifier" });
 
   MonthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -79,6 +80,8 @@
         }
       });
     });
+
+    chrome.runtime.sendMessage({greeting: "hello"}, function(response) {});
   }
 
   populateList();
