@@ -20,20 +20,14 @@
   }
 
   function checkList(list) {
-    let lastTime, currentTime = new Date();
+    console.log(`list: ${list.length}`)
+    let lastTime, currentTime = new Date(), update = false;
 
     Preferences.get('lastTime', savedLast => {
       lastTime = savedLast != {} ? new Date(savedLast) : currentTime;
 
       Preferences.get('notifications', isEnabled => {
-        if (isEnabled) {
-          list.map(message => {
-            if (lastTime < new Date(message.time)) {
-              console.log(`${currentTime} - ${lastTime}: new message ${message.product} ${message.time}`)
-              messageNotification(message);
-            }
-          });
-        }
+        if (isEnabled) list.map(message => lastTime < new Date(message.time) ? messageNotification(message) : false);
       });
 
       Preferences.set('lastTime', new Date().valueOf());
@@ -42,8 +36,7 @@
   }
 
   function badgeUpdate(total) {
-    console.log('badge');
-    if(total > 0) {
+    if(total !== 0) {
       chrome.browserAction.setBadgeText({text: total.toString()});
       chrome.browserAction.setBadgeBackgroundColor({color: [185,0,0,255]});
     } else {
@@ -61,28 +54,32 @@
 
   function messageNotification(message) {
     Preferences.get('filters', savedFilters => {
-      if(savedFilters === undefined) {
-        sendMessage(message);
-      } else {
+      if(typeof savedFilters === String) {
         savedFilters.toLowerCase().replace(' ', '').split(',').forEach(filter => {
           if(message.product.toLowerCase().includes(filter)) {
             sendMessage(message);
           }
         });
+      } else {
+        sendMessage(message);
       }
     });
   }
 
   function statusUpdate(total) {
-    if (total > 0) {
-      new Notification('BlenderMarket Inbox', {
-        icon: chrome.extension.getURL('images/notification_icon_128.png'),
-        body: `${total ? total.toString() : '0'} messages`
-      });
-    }
+    new Notification('BlenderMarket Inbox', {
+      icon: chrome.extension.getURL('images/notification_icon_128.png'),
+      body: `${total ? total.toString() : '0'} messages`
+    });
   }
 
   checkTime = setInterval(checkInbox, pollTime);
 
   checkInbox(listLength => statusUpdate(listLength));
+
+  // sync lookup on popup
+  // TODO refactor to single screen scrape
+  chrome.runtime.onMessage.addListener(function() {
+    checkInbox();
+  });
 })();

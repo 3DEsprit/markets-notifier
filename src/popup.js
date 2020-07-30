@@ -2,6 +2,7 @@
   const Conversations = new messageChecker.Conversations;
   const Account = new messageChecker.Account;
   const Utilities = new messageChecker.Utilities;
+  const port = chrome.runtime.connect({ name: "market_notifier" });
 
   MonthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -32,6 +33,18 @@
 
     userBlock.append(userContent);
     createInboxButton(userBlock);
+  }
+
+  function buildClear() {
+    let messageList = document.querySelector('.message-list');
+    let contentBlock = document.createElement('div');
+    contentBlock.setAttribute('class', 'content-block');
+
+    messageBlock = document.createElement('div');
+    messageBlock.setAttribute('class', 'inbox-message');
+    messageBlock.innerText = "Your Inbox is Empty"
+    contentBlock.append(messageBlock);
+    messageList.append(contentBlock);
   }
 
   function buildContent(message) {
@@ -72,13 +85,19 @@
         if(loginStatus.enabled) {
           setUserName(loginStatus.user);
           Conversations.initList(messages => {
-            messages.map(message => buildContent(message))
+            if(messages.length) {
+              messages.map(message => buildContent(message))
+            } else {
+              buildClear();
+            }
           });
         } else {
           loginContent();
         }
       });
     });
+
+    chrome.runtime.sendMessage({}, function(response) {});
   }
 
   populateList();
