@@ -77,9 +77,9 @@
 
   checkInbox(listLength => statusUpdate(listLength));
 
-  // sync lookup on popup 
+  // sync lookup on popup
   // TODO refactor to single screen scrape
-  chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  chrome.runtime.onMessage.addListener(function() {
     checkInbox();
   });
 })();
