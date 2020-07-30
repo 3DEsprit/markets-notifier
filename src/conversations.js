@@ -12,15 +12,19 @@
       this.conversationList = [];
 
       Utilities.fetchPage(window.inboxUrl, out => {
-        let convoList = out.querySelector('.conversations').children
-        if (convoList.length) {
-          this.total = convoList.length;
-          [].forEach.call(convoList, conversation => {
-            // eslint-disable-next-line no-cond-assign
-            if (inner = conversation.querySelector('.conversation-inner')) {
-              this.conversationList.push(Utilities.parsePreview(inner))
-            }
-          });
+        let queryOut = out.querySelector('.conversations')
+
+        if (queryOut) {
+          let convoList = queryOut.children
+          if (convoList.length) {
+            this.total = convoList.length;
+            [].forEach.call(convoList, conversation => {
+              // eslint-disable-next-line no-cond-assign
+              if (inner = conversation.querySelector('.conversation-inner')) {
+                this.conversationList.push(Utilities.parsePreview(inner))
+              }
+            });
+          }
         }
 
         cb(this.conversationList);
