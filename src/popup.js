@@ -35,6 +35,18 @@
     createInboxButton(userBlock);
   }
 
+  function buildClear() {
+    let messageList = document.querySelector('.message-list');
+    let contentBlock = document.createElement('div');
+    contentBlock.setAttribute('class', 'content-block');
+
+    messageBlock = document.createElement('div');
+    messageBlock.setAttribute('class', 'inbox-message');
+    messageBlock.innerText = "Your Inbox is Empty"
+    contentBlock.append(messageBlock);
+    messageList.append(contentBlock);
+  }
+
   function buildContent(message) {
     let messageList = document.querySelector('.message-list');
     let messageBlock = document.createElement('a');
@@ -73,7 +85,11 @@
         if(loginStatus.enabled) {
           setUserName(loginStatus.user);
           Conversations.initList(messages => {
-            messages.map(message => buildContent(message))
+            if(messages.length) {
+              messages.map(message => buildContent(message))
+            } else {
+              buildClear();
+            }
           });
         } else {
           loginContent();
@@ -81,7 +97,7 @@
       });
     });
 
-    chrome.runtime.sendMessage({greeting: "hello"}, function(response) {});
+    chrome.runtime.sendMessage({}, function(response) {});
   }
 
   populateList();
