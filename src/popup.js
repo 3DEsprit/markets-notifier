@@ -6,35 +6,47 @@
 
   MonthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-  function loginContent() {
-    let messageBlock = document.querySelector('.user');
-    messageBlock.setAttribute('target', '_inbox');
-    messageBlock.setAttribute('class', 'user user-logged-out');
-    messageBlock.innerText = 'Please log into the Blender Market';
-  }
-
-  function createInboxButton(userBlock) {
+  // button creation
+  function createButton(userBlock, isLogin) {
     let inboxButton = document.createElement('a');
     inboxButton.setAttribute('class', 'button inbox-button');
-    inboxButton.setAttribute('href', window.inboxUrl);
     inboxButton.setAttribute('target', '_inbox');
-    inboxButton.innerHTML = 'INBOX';
+
+    if(isLogin) {
+      inboxButton.setAttribute('href', window.loginUrl);
+      inboxButton.innerText = 'LOGIN';
+    } else {
+      inboxButton.setAttribute('href', window.inboxUrl);
+      inboxButton.innerHTML = 'INBOX';
+    }
 
     userBlock.append(inboxButton);
   }
 
-  function setUserName(user) {
+  // header creation
+  function createUserBlock(user) {
     let userBlock = document.querySelector('.user');
-    userBlock.setAttribute('class', 'user-block');
 
     let userContent = document.createElement('div');
     userContent.setAttribute('class', 'user-content ellipsis');
-    userContent.innerHTML = `User: ${user}`;
+    if(user) {
+      userContent.innerHTML = `User: ${user}`;
+      userBlock.setAttribute('class', 'user-block');
+      userBlock.append(userContent);
+      createButton(userBlock, false);
+    } else {      
+      let messageBlock = document.createElement('p');
+      messageBlock.innerText = 'Please log into the Blender Market';
+      userBlock.append(messageBlock);
 
-    userBlock.append(userContent);
-    createInboxButton(userBlock);
+      userBlock.setAttribute('class', 'user user-logged-out');
+      userBlock.append(userContent);
+      createButton(userBlock, true);
+
+    }
   }
 
+  // message markup
   function buildClear() {
     let messageList = document.querySelector('.message-list');
     let contentBlock = document.createElement('div');
@@ -83,7 +95,7 @@
     Utilities.fetchPage(window.baseUrl, page => {
       Account.checkLoginStatus(page, loginStatus => {
         if(loginStatus.enabled) {
-          setUserName(loginStatus.user);
+          createUserBlock(loginStatus.user);
           Conversations.initList(messages => {
             if(messages.length) {
               messages.map(message => buildContent(message))
@@ -92,7 +104,7 @@
             }
           });
         } else {
-          loginContent();
+          createUserBlock();
         }
       });
     });
