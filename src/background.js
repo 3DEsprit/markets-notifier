@@ -20,7 +20,6 @@
   }
 
   function checkList(list) {
-    console.log(`list: ${list.length}`)
     let lastTime, currentTime = new Date(), update = false;
 
     Preferences.get('lastTime', savedLast => {
