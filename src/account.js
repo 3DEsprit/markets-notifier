@@ -8,8 +8,8 @@
 
   messageChecker.Account.prototype = {
     checkLoginStatus: (page, cb) => {
-      if (!page.querySelector('.login-signup-wrap')) {
-        cb({ enabled: true, user: page.querySelector('.account-link-nav').innerText });
+      if (page.querySelector('.user-dropdown-toggle')) {
+        cb({ enabled: true, user: page.querySelector('.user-dropdown-toggle strong').innerText });
       } else {
         cb({ enabled: false, user: undefined });
       }
