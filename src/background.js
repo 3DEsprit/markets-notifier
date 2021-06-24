@@ -20,7 +20,6 @@
   }
 
   function checkList(list) {
-    console.log(`list: ${list.length}`)
     let lastTime, currentTime = new Date(), update = false;
 
     Preferences.get('lastTime', savedLast => {
@@ -54,7 +53,7 @@
 
   function messageNotification(message) {
     Preferences.get('filters', savedFilters => {
-      if(typeof savedFilters === String) {
+      if(savedFilters) {
         savedFilters.toLowerCase().replace(' ', '').split(',').forEach(filter => {
           if(message.product.toLowerCase().includes(filter)) {
             sendMessage(message);

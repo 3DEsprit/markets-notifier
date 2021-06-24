@@ -20,6 +20,12 @@
     filterData.value = savedFilters;
 
     submitButton.addEventListener('click', function() {
+      submitButton.innerText = 'Saved Filters';
+
+      setTimeout(() => {
+        submitButton.innerText = 'Save Filters';
+      }, 2000);
+      
       Preferences.set('filters', filterData.value);
     });
   });

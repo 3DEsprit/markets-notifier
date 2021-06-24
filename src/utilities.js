@@ -8,6 +8,7 @@
 
   window.baseUrl = 'https://blendermarket.com';
   window.inboxUrl = 'https://blendermarket.com/inbox?sort_status=0';
+  window.loginUrl = 'https://blendermarket.com/login';
 
   messageChecker.Utilities = function() {};
 
