@@ -80,9 +80,8 @@
     messageBlock.href = message.link;
 
     messageHeader.innerHTML = message.product;
-    let date = new Date(message.time);
 
-    messageBody.innerHTML = `${MonthNames[date.getMonth() + 1]} ${date.getDay() + 1} - ${message.subject.data}`;
+    messageBody.innerHTML = `${message.time} - ${message.subject}`;
     contentBlock.append(messageHeader);
     contentBlock.append(messageBody);
     messageBlock.append(messageImage);

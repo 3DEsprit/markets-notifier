@@ -20,8 +20,8 @@
             this.total = convoList.length;
             [].forEach.call(convoList, conversation => {
               // eslint-disable-next-line no-cond-assign
-              if (inner = conversation.querySelector('.conversation-inner')) {
-                this.conversationList.push(Utilities.parsePreview(inner))
+              if (conversation) {
+                this.conversationList.push(Utilities.parsePreview(conversation))
               }
             });
           }

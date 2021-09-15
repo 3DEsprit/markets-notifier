@@ -45,22 +45,22 @@
     },
 
     parsePreview: preview => {
-      let link = `${window.baseUrl}${preview.getAttribute('href')}`
-      let unread = preview.classList.toString().includes('unread');
-      let media = preview.querySelector('.conversation-preview--media').style.backgroundImage;
-      let subjectBlock = preview.querySelector('.conversation-preview--subject')
-      let product = preview.querySelector('.conversation-preview--product');
-      let subject = subjectBlock.childNodes[0];
-      let time = subjectBlock.querySelector('.time').firstElementChild.dateTime
+      let link = `${window.baseUrl}${preview.querySelector('a').getAttribute('href')}`
+      let unread = preview.className.includes('unread');
+      let media = preview.querySelector('.avatar').src;
+      let subjectBlock = preview.querySelector('.conversation-preview').childNodes
+      let subject = subjectBlock[0].textContent.trim();
+      let time = subjectBlock[1].innerText;
+      let product = subjectBlock[3].innerText || 'General';
 
-      if (product && product.innerText) {
-        product = product.innerText.replace(/^Re: /, '');
+      if (product) {
+        product = product.replace(/^RE: /, '');
       } else {
         product = 'General';
       }
 
-      if (subject && subject.innerText) {
-        subject = subject.innerText.replace(/^Re: /, '');
+      if (subject) {
+        subject = subject.replace(/^RE: /, '');
       }
 
       if (media) {
